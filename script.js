@@ -134,7 +134,7 @@ function startIntervals() {
     sleepInterval = setInterval(decreaseSleep, 25);
 }
 
-//disableButton
+// todo: make function with parameter (id) that toggles "none" class
 function startGame() {
     startIntervals();
     document.getElementById("disableButton").classList.add("none");
