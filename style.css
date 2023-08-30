@@ -230,9 +230,9 @@ button:disabled {
 
 .programmer {
     position: absolute;
-    top: 5rem;
-    right: 5rem;
-    height: 50vh;
+    top: 2rem;
+    right: 15%;
+    height: 60vh;
 }
 
 /*End*/
