@@ -3,26 +3,44 @@ const coffeeBar = document.getElementById("coffeeProgress");
 const showerBar = document.getElementById("showerProgress");
 const foodBar = document.getElementById("foodProgress");
 const sleepBar = document.getElementById("sleepProgress");
+const bossBar = document.getElementById("bossProgress");
 
 const coffeeIcon = document.getElementById("coffeeIcon");
 const showerIcon = document.getElementById("showerIcon");
 const foodIcon = document.getElementById("foodIcon");
 const sleepIcon = document.getElementById("sleepIcon");
+const bossIcon = document.getElementById("bossIcon");
+
+const coffeeButton = document.getElementById("coffeeButton");
+const foodButton = document.getElementById("foodButton");
+const showerButton = document.getElementById("showerButton");
+
+const sleepButton = document.getElementById("sleepButton");
+
+const bossIcons = ["😡", "😠", "😐", "🙂", "🙂"];
 
 let coffeeNeed = 1000;
 let showerNeed = 1000;
 let foodNeed = 1000;
 let sleepNeed = 1000;
+let bossTimer = 1000;
+let survivalTime = 0;
 
-let coffeeAtZero = 0;
-let showerAtZero = 0;
-let foodAtZero = 0;
-let sleepAtZero = 0;
+let sleepAmount = -1;
 
 let coffeeInterval;
 let showerInterval;
 let foodInterval;
 let sleepInterval;
+let bossInterval;
+let statusInterval;
+
+let bossIconIndex = 3;
+let soundPlaying = false;
+
+let sleepButtonContent = /*html*/ `
+    🇸​​​​​🇱​​​​​🇪​​​​​🇪🇵<br>​​​​💤
+`;
 
 // View
 function updateView() {
@@ -31,11 +49,20 @@ function updateView() {
     showerBar.style.width = getWidth(showerNeed);
     foodBar.style.width = getWidth(foodNeed);
     sleepBar.style.width = getWidth(sleepNeed);
+    bossBar.style.width = getWidth(bossTimer);
 
     coffeeIcon.classList.toggle("flashing", coffeeNeed < 250);
     showerIcon.classList.toggle("flashing", showerNeed < 250);
     foodIcon.classList.toggle("flashing", foodNeed < 250);
     sleepIcon.classList.toggle("flashing", sleepNeed < 250);
+
+    sleepButton.innerHTML = sleepButtonContent;
+}
+
+function gameOver(id) {
+    document.getElementById(id).classList.remove("none");
+    document.getElementById("survival-time").textContent = survivalTime;
+    document.getElementById("survival-time2").textContent = survivalTime;
 }
 
 updateView();
@@ -46,16 +73,10 @@ function getWidth(value) {
     return `${percentage * 265}px`;
 }
 
-function tempControllerName() {
-    updateView();
-}
-
 // Coffee
 function decreaseCoffee() {
     if (coffeeNeed > 0) {
         coffeeNeed--;
-    } else {
-        coffeeAtZero++;
     }
     updateView();
 }
@@ -73,8 +94,6 @@ function increaseCoffee(amount) {
 function decreaseShower() {
     if (showerNeed > 0) {
         showerNeed--;
-    } else {
-        showerAtZero++;
     }
     updateView();
 }
@@ -93,8 +112,6 @@ function increaseShower(amount) {
 function decreaseFood() {
     if (foodNeed > 0) {
         foodNeed--;
-    } else {
-        foodAtZero++;
     }
     updateView();
 }
@@ -109,32 +126,87 @@ function increaseFood(amount) {
 }
 
 // Sleep
-function decreaseSleep() {
-    if (sleepNeed > 0) {
-        sleepNeed--;
-    } else {
-        sleepAtZero++;
+function changeSleep() {
+    if (sleepNeed > 0 && sleepAmount < 0) {
+        sleepNeed += sleepAmount;
+    } else if (sleepNeed === 0) {
+        toggleSleep();
+        sleepNeed += sleepAmount;
+    } else if (sleepNeed <= 1000) {
+        sleepAmount = 2;
+        sleepNeed += sleepAmount;
     }
     updateView();
 }
 
-function increaseSleep(amount) {
-    if (sleepNeed + amount > 1000) {
-        sleepNeed = 1000;
+function toggleSleep() {
+    if (sleepAmount > 0) {
+        sleepAmount = -1;
+        sleepButtonContent = /*html*/ `
+            🇸​​​​​🇱​​​​​🇪​​​​​🇪​​​​​🇵<br>​​​​💤
+        `;
+        coffeeButton.disabled = false;
+        showerButton.disabled = false;
+        foodButton.disabled = false;
     } else {
-        sleepNeed += amount;
+        sleepAmount = 2;
+        sleepButtonContent = /*html*/ `
+            🇼​​​​​🇦​​​​​🇰​​​​​🇪​​​​​ 🇺​​​​​🇵​​​​​<br>​​​​💤
+        `;
+        coffeeButton.disabled = true;
+        showerButton.disabled = true;
+        foodButton.disabled = true;
     }
     updateView();
+}
+
+function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function decreaseBoss() {
+    if (bossTimer > 0) {
+        bossTimer--;
+    } else if (soundPlaying === false) {
+        doorBanging();
+    }
+    bossIconIndex = Math.floor(bossTimer / 250);
+    bossIcon.textContent = bossIcons[bossIconIndex];
+}
+
+function checkStatus() {
+    if (coffeeNeed === 0 || foodNeed === 0) {
+        gameOver("player-dead");
+        stopIntervals();
+    }
 }
 
 function startIntervals() {
-    coffeeInterval = setInterval(decreaseCoffee, 10);
+    coffeeNeed = getRandomNum(600, 1000);
+    showerNeed = getRandomNum(600, 1000);
+    foodNeed = getRandomNum(600, 1000);
+    sleepNeed = getRandomNum(600, 1000);
+    coffeeInterval = setInterval(decreaseCoffee, 12);
     showerInterval = setInterval(decreaseShower, 25);
-    foodInterval = setInterval(decreaseFood, 10);
-    sleepInterval = setInterval(decreaseSleep, 25);
+    foodInterval = setInterval(decreaseFood, 15);
+    sleepInterval = setInterval(changeSleep, 20);
+    bossInterval = setInterval(decreaseBoss, 30);
+    startInterval = setInterval(checkStatus, 100);
+    survivalInterval = setInterval(() => {
+        survivalTime++;
+    }, 1000);
 }
 
-// todo: make function with parameter (id) that toggles "none" class
+function stopIntervals() {
+    clearInterval(coffeeInterval);
+    clearInterval(showerInterval);
+    clearInterval(foodInterval);
+    clearInterval(sleepInterval);
+    clearInterval(bossInterval);
+    clearInterval(startInterval);
+    clearInterval(survivalInterval);
+}
+
 function startGame() {
     startIntervals();
     document.getElementById("disableButton").classList.add("none");
@@ -143,3 +215,35 @@ function startGame() {
     document.getElementById("foodButton").classList.remove("none");
     document.getElementById("sleepButton").classList.remove("none");
 }
+
+function doorBanging() {
+    soundPlaying = true;
+    const doorBanging = document.getElementById("door-banging");
+    const doorBreak = document.getElementById("door-break");
+    doorBanging.volume = 0.5;
+    doorBreak.volume = 0.3;
+    doorBanging.play();
+    setTimeout(() => {
+        doorBreak.play();
+    }, 1500);
+    setTimeout(bossEnter, 2400);
+}
+
+function bossEnter() {
+    if (sleepAmount > 0 || showerNeed === 0) {
+        gameOver("player-fired");
+        stopIntervals();
+    }
+    bossTimer = 1000;
+    soundPlaying = false;
+}
+
+/*
+
+TODO
+
+Boss
+Figuren
+Death/fired (game over)
+
+*/

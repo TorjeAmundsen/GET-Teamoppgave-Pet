@@ -3,56 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!--
+        <link rel="icon" href="">
+    -->
     <title>Kontorspill</title>
 </head>
 <body>
-    <div class="health-container">
-        <h1>🇭​​​​​🇪​​​​​🇦​​​​​🇱​​​​​🇹​​​​​🇭​​​​​ 🇧​​​​​🇦​​​​​🇷​​​​​❤</h1>
-        <div class="meter-container">
-            <div class="icon" id="coffeeIcon">​☕</div>
-            <div id="coffeeMeter" class="coffeeMeter">
-                <div class="coffeeProgress" id="coffeeProgress"></div>
+    <img src="img/programmer.png" alt="" class="programmer" id="image">
+    <div class="container">
+        <div class="health-container">
+            <h1>🇭​​​​​🇪​​​​​🇦​​​​​🇱​​​​​🇹​​​​​🇭​​​​​ 🇧​​​​​🇦​​​​​🇷​​​​​❤</h1>
+            <div class="meter-container">
+                <div class="icon" id="coffeeIcon">​☕</div>
+                <div id="coffeeMeter" class="meter">
+                    <div class="coffeeProgress" id="coffeeProgress"></div>
+                </div>
+            </div>
+            <div class="meter-container">
+                <div class="icon" id="showerIcon">🛁</div>
+                <div id="showerMeter" class="meter">
+                    <div class="showerProgress" id="showerProgress"></div>
+                </div>
+            </div>
+            <div class="meter-container">
+                <div class="icon" id="foodIcon">🍔</div>
+                <div id="foodMeter" class="meter">
+                    <div class="foodProgress" id="foodProgress"></div>
+                </div>
+            </div>
+            <div class="meter-container">
+                <div class="icon" id="sleepIcon">​​​​💤</div>
+                <div id="sleepMeter" class="meter">
+                    <div class="sleepProgress" id="sleepProgress"></div>
+                </div> 
             </div>
         </div>
-
         <div class="meter-container">
-            <div class="icon" id="showerIcon">🛁</div>
-            <div id="showerMeter" class="showerMeter">
-                <div class="showerProgress" id="showerProgress"></div>
+            <div class="icon">​​​​💼</div>
+            <div id="bossMeter" class="meter">
+                <div class="bossProgress" id="bossProgress"></div>
             </div>
+            <div class="icon padding-left" id="bossIcon">🙂</div> 
         </div>
-
-        <div class="meter-container">
-            <div class="icon" id="foodIcon">🍔</div>
-            <div id="foodMeter" class="foodMeter">
-                <div class="foodProgress" id="foodProgress"></div>
-            </div>
-        </div>
-
-        <div class="meter-container">
-            <div class="icon" id="sleepIcon">​​​​💤</div>
-            <div id="sleepMeter" class="sleepMeter">
-                <div class="sleepProgress" id="sleepProgress"></div>
-            </div> 
-        </div>
-
     </div>
     <div class="button-container">
         <button id="coffeeButton" onclick="increaseCoffee(330)" class="need-button none">🇨​​​​​🇴​​​​​🇫​​​​​🇫​​​​​🇪​​​​​🇪<br>​​​​☕​</button>
         <button id="showerButton" onclick="increaseShower(1000)" class="need-button none">🇸​​​​​🇭​​​​​🇴​​​​​🇼​​​​​🇪​​​​​🇷<br>​​​​🛁​</button>
         <button id="foodButton" onclick="increaseFood(400)" class="need-button none">🇪​​​​​🇦​​​​​🇹<br>​​​​🍔​</button>
-        <button id="sleepButton" onclick="increaseSleep(700)" class="need-button none">🇸​​​​​🇱​​​​​🇪​​​​​🇪​​​​​🇵<br>​​​​💤​</button>
+        <button id="sleepButton" onclick="toggleSleep(this)" class="need-button none">🇸​​​​​🇱​​​​​🇪​​​​​🇪​​​​​🇵<br>​​​​💤​</button>
         <button id="disableButton" onclick="startGame()" class="start-button">START GAME<br>🎮​</button>
     </div>
-
-    <div id="showerAtZero"></div>
-
     <div>
-
+        <audio id="door-banging">
+            <source src="audio/door-banging.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="door-break">
+            <source src="audio/door-break.mp3" type="audio/mpeg">
+        </audio>
     </div>
-
-
+    <div id="player-fired" class="game-over-container none">
+        <div>YOU ARE FIRED! <br><span style="color: hsl(0, 85%, 41%); text-shadow:0 0 12px hsla(0, 85%, 41%, 0.6)">GAME OVER</span></div>
+        <div>Survived: <span id="survival-time"></span>s</div>
+        <button class="restart-button" onclick="location.reload()">RESTART</button>
+    </div>
+    <div id="player-dead" class="game-over-container none">
+        <div>YOU HAVE DIED! <br><span style="color: hsl(0, 85%, 41%); text-shadow:0 0 12px hsla(0, 85%, 41%, 0.6)">GAME OVER</span></div>
+        <div>Survived: <span id="survival-time2"></span>s</div>
+        <button class="restart-button" onclick="location.reload()">RESTART</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
