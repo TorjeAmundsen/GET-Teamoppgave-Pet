@@ -1,6 +1,7 @@
 /*Start*/
 
 body {
+    user-select: none;
     margin: 0;
     padding: 0;
     color: #ffffff;
@@ -18,15 +19,15 @@ body {
     justify-items: left;
     align-items: start;
 
-    width: 320px;
-    height: 230px;
+    width: 640px;
+    height: 460px;
     background-color: hsl(0, 0%, 20%);
-    margin-top: 8px;
-    margin-left: 8px;
-    margin-bottom: 1rem;
-    padding: 8px 8px 8px 8px;
-    font-size: larger;
-    border-radius: 5px;
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-bottom: 2rem;
+    padding: 16px 16px 16px 16px;
+    font-size: 36px;
+    border-radius: 10px;
 }
 
 h1 {
@@ -44,80 +45,81 @@ h1 {
 .meter-container {
     display: flex;
     width: inherit;
-    padding: 5px 5px 5px 5px;
+    padding: 10px 10px 10px 10px;
 }
 
 .coffeeProgress {
     position: relative;
     top: 0;
-    height: 25px;
+    height: 50px;
     background-color: hsl(0, 35%, 33%);
-    width: 50px;
-    border-radius: 4px;
+    width: 100px;
+    border-radius: 8px;
 }
 
 .showerProgress {
     position: relative;
     top: 0;
-    height: 25px;
+    height: 50px;
     background-color: hsl(188, 83%, 43%);
-    width: 50px;
-    border-radius: 4px;
+    width: 100px;
+    border-radius: 8px;
 }
 
 .padding-left {
-    padding-left: 5px;
+    padding-left: 10px;
 }
 
 .foodProgress {
     position: relative;
     top: 0;
-    height: 25px;
+    height: 50px;
     background-color: hsl(106, 78%, 44%);
-    width: 50px;
-    border-radius: 4px;
+    width: 100px;
+    border-radius: 8px;
 }
 
 .meter {
-    outline: 2px solid hsl(0, 0%, 3%);
-    width: 265px;
+    outline: 4px solid hsl(0, 0%, 3%);
+    width: 530px;
     padding-left: 5px;
-    height: 25px;
+    height: 50px;
     background-color: hsl(0, 0%, 10%);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 0;
-    box-shadow: 2px 2px 10px -2px black;
+    box-shadow: 4px 4px 15px -4px black;
 }
 
 .sleepProgress {
     position: relative;
     top: 0;
-    height: 25px;
+    height: 50px;
     background-color: hsl(283, 54%, 37%);
-    width: 50px;
-    border-radius: 4px;
+    width: 100px;
+    border-radius: 8px;
 }
 
 .bossProgress {
     position: relative;
     top: 0;
-    height: 25px;
+    height: 50px;
     background-color: hsl(9, 77%, 17%);
-    width: 50px;
-    border-radius: 4px;
+    width: 100px;
+    border-radius: 8px;
 }
 
 .icon {
     position: relative;
-    margin-right: 5px;
+    font-size: 36px;
+    margin-right: 10px;
     top: 0;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 #bossIcon {
     position: relative;
-    top: -10px;
-    font-size: 30px;
+    top: -20px;
+    font-size: 60px;
 }
 
 .button-container {
@@ -126,37 +128,54 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    width: 30rem;
-    height: 6.5rem;
+    width: 60rem;
+    height: 10rem;
     justify-content: space-evenly;
     align-items: center;
     margin: 8px;
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 0 10px black;
     background-color: hsl(219, 75%, 20%);
 }
 .need-button {
-    width: 6.5rem;
-    height: 5rem;
+    width: 13.5rem;
+    height: 8rem;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 40px;
+    border-radius: 10px;
+    border: none;
 }
 
 .start-button {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 900;
     line-height: 30px;
-    width: 15rem;
-    height: 5rem;
+    width: 18rem;
+    height: 8rem;
     cursor: pointer;
     font-size: 30px;
+    border: none;
+    border-radius: 15px;
 }
 
-button:hover {
-    background-color: lightgreen;
+#coffeeButton:hover {
+    background-color: hsl(0, 35%, 60%);
 }
+
+#showerButton:hover {
+    background-color: hsl(188, 75%, 66%);
+}
+
+#foodButton:hover {
+    background-color: hsl(106, 85%, 66%);
+}
+
+#sleepButton:hover {
+    background-color: hsl(283, 54%, 65%);
+}
+
 button:disabled {
-    background-color: gray;
+    background-color: gray !important;
 }
 
 @keyframes bounce {
@@ -193,25 +212,31 @@ button:disabled {
 
 .game-over-container {
     font-family: "Press Start 2P", cursive;
-    font-size: 48px;
+    font-size: 50px;
     margin: 0;
     padding: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 32rem;
-    height: 16rem;
-    background-color: hsl(0, 0%, 14%);
+    width: 40rem;
+    height: 24rem;
+    background-color: hsla(0, 0%, 14%, 0.35);
     outline: 4px solid hsl(0, 0%, 3%);
     border-radius: 16px;
     font-size: x-large;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     text-align: center;
-    line-height: 2ch;
+    line-height: 3ch;
+    backdrop-filter: blur(15px);
+}
+
+.pixel-font {
+    font-family: "Press Start 2P", cursive;
+    font-size: 32px;
 }
 
 .restart-button {
@@ -219,13 +244,16 @@ button:disabled {
     color: white;
     font-family: inherit;
     border: none;
-    padding: 8px;
+    padding: 24px;
     margin-bottom: 8px;
+    font-size: 24px;
+    border-radius: 10px;
     background-color: hsl(0, 0%, 34%);
 }
 
 .restart-button:hover {
     color: black;
+    background-color: white;
 }
 
 .programmer {
@@ -235,4 +263,113 @@ button:disabled {
     height: 60vh;
 }
 
+#ivarSign {
+    color: darkred;
+    align-self: center;
+    text-decoration: double;
+    text-align: center;
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    font-weight: bold;
+    font-family: autorative;
+    font-size: larger;
+}
+
+#andreSign {
+    /*
+    "Comic Sans MS", "Comic Sans", cursive;
+    */
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: center;
+    color: rgb(127, 255, 53);
+    text-align: center;
+    /* box-shadow: 0 0 20px greenyellow;*/
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-delay: 150ms;
+    animation-duration: 1s;
+}
+
+#andreSign::first-letter {
+    color: greenyellow;
+}
+
+#binerSign {
+    animation-delay: 300ms;
+    color: yellow;
+    align-self: center;
+    text-decoration: double;
+    text-align: center;
+    text-shadow: 10px, 20px, rgb(255, 247, 5);
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: larger;
+}
+
+#torjeSign {
+    font-family: "Press Start 2P", cursive;
+    animation-delay: 450ms;
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    font-weight: bold;
+    text-align: center;
+    color: #37afff;
+}
+
+#pålSign {
+    animation-delay: 600ms;
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    font-weight: bold;
+    text-align: center;
+    color: #c716be;
+}
+
+.signatures-container {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    background-color: hsla(0, 0%, 15%, 0.4);
+    outline: 3px solid black;
+    position: absolute;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80vh;
+    width: 50vw;
+    font-size: 40px;
+    border-radius: 15px;
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%);
+    backdrop-filter: blur(15px);
+}
+
+.credits {
+    cursor: pointer;
+    color: white;
+    font-family: "Press Start 2P", cursive;
+    border: none;
+    padding: 12px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: hsl(0, 0%, 34%);
+}
+
+.credits:hover {
+    color: black;
+    background-color: white;
+}
+
+.hide-credits {
+    width: 14rem;
+}
 /*End*/

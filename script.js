@@ -14,8 +14,16 @@ const bossIcon = document.getElementById("bossIcon");
 const coffeeButton = document.getElementById("coffeeButton");
 const foodButton = document.getElementById("foodButton");
 const showerButton = document.getElementById("showerButton");
-
 const sleepButton = document.getElementById("sleepButton");
+
+const doorBangingSound = document.getElementById("door-banging");
+const doorBreak = document.getElementById("door-break");
+const coffeeSound = document.getElementById("coffee-sound");
+const foodSound = document.getElementById("food-sound");
+const showerSound = document.getElementById("shower-sound");
+const sleepSound = document.getElementById("sleep-sound");
+
+const signatures = document.getElementById("signatures");
 
 const bossIcons = ["😡", "😠", "😐", "🙂", "🙂"];
 
@@ -60,9 +68,18 @@ function updateView() {
 }
 
 function gameOver(id) {
+    sleepSound.loop = false;
     document.getElementById(id).classList.remove("none");
     document.getElementById("survival-time").textContent = survivalTime;
     document.getElementById("survival-time2").textContent = survivalTime;
+    coffeeButton.disabled = true;
+    showerButton.disabled = true;
+    foodButton.disabled = true;
+    sleepButton.disabled = true;
+}
+
+function toggleCredits() {
+    signatures.classList.toggle("none");
 }
 
 updateView();
@@ -70,7 +87,7 @@ updateView();
 // Controller
 function getWidth(value) {
     let percentage = value / 1000;
-    return `${percentage * 265}px`;
+    return `${percentage * 530}px`;
 }
 
 // Coffee
@@ -87,6 +104,8 @@ function increaseCoffee(amount) {
     } else {
         coffeeNeed += amount;
     }
+    coffeeSound.volume = 0.17;
+    coffeeSound.play();
     updateView();
 }
 
@@ -105,6 +124,8 @@ function increaseShower(amount) {
     } else {
         showerNeed += amount;
     }
+    showerSound.volume = 0.08;
+    showerSound.play();
     updateView();
 }
 
@@ -122,6 +143,8 @@ function increaseFood(amount) {
     } else {
         foodNeed += amount;
     }
+    foodSound.volume = 0.05;
+    foodSound.play();
     updateView();
 }
 
@@ -148,6 +171,7 @@ function toggleSleep() {
         coffeeButton.disabled = false;
         showerButton.disabled = false;
         foodButton.disabled = false;
+        sleepSound.loop = false;
     } else {
         sleepAmount = 2;
         sleepButtonContent = /*html*/ `
@@ -156,12 +180,11 @@ function toggleSleep() {
         coffeeButton.disabled = true;
         showerButton.disabled = true;
         foodButton.disabled = true;
+        sleepSound.loop = true;
+        sleepSound.volume = 0.1;
+        sleepSound.play();
     }
     updateView();
-}
-
-function getRandomNum(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function decreaseBoss() {
@@ -181,17 +204,21 @@ function checkStatus() {
     }
 }
 
-function startIntervals() {
+function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function startIntervals(speed) {
     coffeeNeed = getRandomNum(600, 1000);
     showerNeed = getRandomNum(600, 1000);
     foodNeed = getRandomNum(600, 1000);
     sleepNeed = getRandomNum(600, 1000);
-    coffeeInterval = setInterval(decreaseCoffee, 12);
-    showerInterval = setInterval(decreaseShower, 25);
-    foodInterval = setInterval(decreaseFood, 15);
-    sleepInterval = setInterval(changeSleep, 20);
-    bossInterval = setInterval(decreaseBoss, 30);
-    startInterval = setInterval(checkStatus, 100);
+    coffeeInterval = setInterval(decreaseCoffee, 12 / speed);
+    showerInterval = setInterval(decreaseShower, 25 / speed);
+    foodInterval = setInterval(decreaseFood, 15 / speed);
+    sleepInterval = setInterval(changeSleep, 20 / speed);
+    bossInterval = setInterval(decreaseBoss, 30 / speed);
+    startInterval = setInterval(checkStatus, 100 / speed);
     survivalInterval = setInterval(() => {
         survivalTime++;
     }, 1000);
@@ -207,9 +234,11 @@ function stopIntervals() {
     clearInterval(survivalInterval);
 }
 
-function startGame() {
-    startIntervals();
-    document.getElementById("disableButton").classList.add("none");
+function startGame(speed) {
+    startIntervals(speed);
+    document.getElementById("startButton-1").classList.add("none");
+    document.getElementById("startButton-2").classList.add("none");
+    document.getElementById("startButton-3").classList.add("none");
     document.getElementById("coffeeButton").classList.remove("none");
     document.getElementById("showerButton").classList.remove("none");
     document.getElementById("foodButton").classList.remove("none");
@@ -218,11 +247,9 @@ function startGame() {
 
 function doorBanging() {
     soundPlaying = true;
-    const doorBanging = document.getElementById("door-banging");
-    const doorBreak = document.getElementById("door-break");
-    doorBanging.volume = 0.5;
+    doorBangingSound.volume = 0.5;
     doorBreak.volume = 0.3;
-    doorBanging.play();
+    doorBangingSound.play();
     setTimeout(() => {
         doorBreak.play();
     }, 1500);
@@ -237,13 +264,3 @@ function bossEnter() {
     bossTimer = 1000;
     soundPlaying = false;
 }
-
-/*
-
-TODO
-
-Boss
-Figuren
-Death/fired (game over)
-
-*/

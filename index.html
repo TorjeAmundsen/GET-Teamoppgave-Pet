@@ -55,25 +55,49 @@
         <button id="showerButton" onclick="increaseShower(1000)" class="need-button none">🇸​​​​​🇭​​​​​🇴​​​​​🇼​​​​​🇪​​​​​🇷<br>​​​​🛁​</button>
         <button id="foodButton" onclick="increaseFood(400)" class="need-button none">🇪​​​​​🇦​​​​​🇹<br>​​​​🍔​</button>
         <button id="sleepButton" onclick="toggleSleep(this)" class="need-button none">🇸​​​​​🇱​​​​​🇪​​​​​🇪​​​​​🇵<br>​​​​💤​</button>
-        <button id="disableButton" onclick="startGame()" class="start-button">START GAME<br>🎮​</button>
+        <button id="startButton-1" onclick="startGame(0.75)" class="start-button">NOOB<br>🎮</button>
+        <button id="startButton-2" onclick="startGame(1)" class="start-button">NORMAL<br>🎮</button>
+        <button id="startButton-3" onclick="startGame(1.6)" class="start-button">EXPERT<br>🎮</button>
     </div>
-    <div>
-        <audio id="door-banging">
-            <source src="audio/door-banging.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="door-break">
-            <source src="audio/door-break.mp3" type="audio/mpeg">
-        </audio>
+    <audio id="door-banging">
+        <source src="audio/door-banging.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="door-break">
+        <source src="audio/door-break.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="coffee-sound">
+        <source src="audio/coffee.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="shower-sound">
+        <source src="audio/shower.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="food-sound">
+        <source src="audio/food.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sleep-sound">
+        <source src="audio/sleep.mp3" type="audio/mpeg" loop>
+    </audio>
+    <div id="signatures" class="signatures-container none">
+        <div>𝐏𝐫𝐨𝐝𝐮𝐜𝐞𝐝 𝐛𝐲:</div>
+        <div id="torjeSign">Director: Torje</div>
+        <div id="ivarSign">𝒞𝐸𝒪: łV₳Ɽ</div>
+        <div id="andreSign">Audio Engineer: A̷̧̼̭̠̦̒͗̔n̴̬̭̟͎͗̅̽̾̕d̸̥̣̞̦͆r̸̩̮̘͛̿͜͝é̸̘̳̬͕̬̀́̀̕</div>
+        <div id="pålSign">Editor: 𝒫𝒶̊𝓁</div>
+        <div id="binerSign">IT-engineer: 乃讠𝓝🝗尺</div>
+        <button class="hide-credits credits" onclick="toggleCredits()">HIDE CREDITS</button>
     </div>
     <div id="player-fired" class="game-over-container none">
-        <div>YOU ARE FIRED! <br><span style="color: hsl(0, 85%, 41%); text-shadow:0 0 12px hsla(0, 85%, 41%, 0.6)">GAME OVER</span></div>
-        <div>Survived: <span id="survival-time"></span>s</div>
+        <div class="pixel-font">YOU ARE FIRED! <br><span style="color: hsl(0, 85%, 41%); text-shadow:0 0 12px hsla(0, 85%, 41%, 0.6)">GAME OVER</span></div>
+        <div class="pixel-font">Survived: <span id="survival-time"></span>s</div>
         <button class="restart-button" onclick="location.reload()">RESTART</button>
+        <button class="credits" onclick="toggleCredits()">SHOW CREDITS</button>
+
     </div>
     <div id="player-dead" class="game-over-container none">
-        <div>YOU HAVE DIED! <br><span style="color: hsl(0, 85%, 41%); text-shadow:0 0 12px hsla(0, 85%, 41%, 0.6)">GAME OVER</span></div>
-        <div>Survived: <span id="survival-time2"></span>s</div>
-        <button class="restart-button" onclick="location.reload()">RESTART</button>
+        <div class="pixel-font">YOU HAVE DIED! <br><span style="color: hsl(0, 85%, 41%); text-shadow:0 0 12px hsla(0, 85%, 41%, 0.6)">GAME OVER</span></div>
+        <div class="pixel-font">Survived: <span id="survival-time2"></span>s</div>
+            <button class="restart-button" onclick="location.reload()">RESTART</button>
+            <button class="credits" onclick="toggleCredits()">SHOW CREDITS</button>
     </div>
     <script src="script.js"></script>
 </body>
