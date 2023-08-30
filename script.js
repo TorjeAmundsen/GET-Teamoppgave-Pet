@@ -25,7 +25,16 @@ const sleepSound = document.getElementById("sleep-sound");
 
 const signatures = document.getElementById("signatures");
 
+/* const audio1 = document.getElementById("cred-1");
+const audio2 = document.getElementById("cred-2");
+const audio3 = document.getElementById("cred-3");
+const audio4 = document.getElementById("cred-4");
+const audio5 = document.getElementById("cred-5");
+const audio6 = document.getElementById("cred-6"); */
+
 const bossIcons = ["😡", "😠", "😐", "🙂", "🙂"];
+
+/* let creditsShowing = false; */
 
 let coffeeNeed = 1000;
 let showerNeed = 1000;
@@ -80,6 +89,25 @@ function gameOver(id) {
 
 function toggleCredits() {
     signatures.classList.toggle("none");
+    /* creditsShowing = !creditsShowing;
+    if (creditsShowing) {
+        audio1.play();
+        setTimeout(() => {
+            audio2.play();
+        }, 2500);
+        setTimeout(() => {
+            audio3.play();
+        }, 5000);
+        setTimeout(() => {
+            audio4.play();
+        }, 7500);
+        setTimeout(() => {
+            audio5.play();
+        }, 10000);
+        setTimeout(() => {
+            audio6.play();
+        }, 12500);
+    } */
 }
 
 updateView();
